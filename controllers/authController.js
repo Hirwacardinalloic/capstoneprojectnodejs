@@ -2,7 +2,7 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 
 const handleError= err=>{
-    let error= { email: '', password: ''}
+    let error= { email: 'Provide an email address', password: 'Provide a password'}
 
     //Login errors
     if(err.message === 'Incorrect email') {
@@ -12,9 +12,7 @@ const handleError= err=>{
         error.password = 'That password is incorrect';
     }
     
-    if(err.message.includes('user validation failed')){
-        console.log(err);
-    }
+    
 
     return error;
     
@@ -32,31 +30,32 @@ const createToken = (id)=>{
 module.exports.signIn = async (req, res)=>{
     const {email, password} = req.body;
     try{
-       const user = await User.login(email, password);
-       const token = createToken(user._id);
-       res.header('authorization', token);
-        res.status(200).json({user: user._id, token});
+        
+        const user = await User.login(email,password);
+        const token = createToken(user._id);
+        res.json({user: user._id, token});
+       
     }catch(err){
-        const error= handleError(err);
-        res.status(400).json({ error });
+        const error = handleError(err);
+        res.status(400).send({error: error});
     }
 }
 
-module.exports.register = async (req, res)=>{
-    const {email, password} = req.body;
+// module.exports.register = async (req, res)=>{
+//     const {email, password} = req.body;
     
-    try{
-        const user = await User.create({ email, password });
-        res.status(201).json({ user: user._id });
-    }catch(err){
-        handleError(err);
-        res.send('user not created');
-    }
-}
+//     try{
+//         const user = await User.create({ email, password });
+//         res.status(201).json({ user: user._id });
+//     }catch(err){
+//         handleError(err);
+//         res.send('user not created');
+//     }
+// }
 
-module.exports.logout = (req, res)=>{
-    res.cookie('jwt', '', {maxAge: 1});
-    res.json({});
+// module.exports.logout = (req, res)=>{
+//     res.header('Authorization', '');
+//     res.json({});
     
-}
+// }
 

@@ -12,11 +12,13 @@ app.use(express.json());
 app.use('/api', require('./routes/api'));
 //error handling middleware
 
-app.use((err, req, res, next)=>{
-    res.status(422).send({Error: err._message});
-});
+// app.use((err, req, res, next)=>{
+//     res.status(422).send({Error: err._message});
+// });
 
 
 app.listen(process.env.PORT, ()=>{
     console.log(`The Server listening at ${process.env.PORT}`);
 });
+
+module.exports = app;

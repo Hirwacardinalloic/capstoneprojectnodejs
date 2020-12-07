@@ -18,13 +18,13 @@ const userSchema = new mongoose.Schema({
 });
 //this will be fired before the user is saved
 //password hashing
-userSchema.pre('save', async function (next){
-    //generating a string to be attached to the password before hashing it
-    const salt = await bcrypt.genSalt();
-    //hashing the password
-    this.password= await bcrypt.hash(this.password, salt);
-    next();//without next the code doen's go on
-});
+// userSchema.pre('save', async function (next){
+//     //generating a string to be attached to the password before hashing it
+//     const salt = await bcrypt.genSalt();
+//     //hashing the password
+//     this.password= await bcrypt.hash(this.password, salt);
+//     next();//without next the code doen's go on
+// });
 
 //static method to log users in
 userSchema.statics.login = async function(email, password) {

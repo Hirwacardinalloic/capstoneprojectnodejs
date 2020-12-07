@@ -6,6 +6,7 @@ const upload = require('../utils/multer');
 router.use('/article',  require('./specificRoutes/articleRoutes'));
 
 router.use('/auth', require('./specificRoutes/authRoutes'));
+router.use('/comments', require('./specificRoutes/commentRoutes'));
 
 // router.post('/image', upload.single('image'), async (req, res)=>{
 //     console.log('posting an image');
