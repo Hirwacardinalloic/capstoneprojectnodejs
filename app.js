@@ -17,7 +17,7 @@ app.use('/api', require('./routes/api'));
 // });
 
 
-app.listen(process.env.PORT, ()=>{
+app.listen(process.env.PORT || 4000, ()=>{
     console.log(`The Server listening at ${process.env.PORT}`);
 });
 
